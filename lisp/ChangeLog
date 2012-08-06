@@ -1,5 +1,8 @@
 2012-08-06  Julien Danjou  <julien@danjou.info>
 
+	* gnus-demon.el (gnus-demon-add-handler, gnus-demon-remove-handler):
+	Remove autoload, already handled by gnus.el.
+
 	* nnimap.el (nnimap-request-head): Remove to-buffer argument.
 
 	* gnus-int.el (gnus-request-head): Remove to-buffer argument, only
