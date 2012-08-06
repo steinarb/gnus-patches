@@ -1,3 +1,9 @@
+2012-08-06  Julien Danjou  <julien@danjou.info>
+
+	* gnus-int.el (gnus-request-head): Add an optional to-buffer parameter
+	to mimic `gnus-request-article' and enjoy backends the nn*-request-head
+	to-buffer argument that is already supported.
+
 2012-08-05  Julien Danjou  <julien@danjou.info>
 
 	* gnus-demon.el (gnus-demon-add-handler, gnus-demon-remove-handler):
