@@ -581,9 +581,8 @@ real group. Does nothing on a real group."
        (and (bound-and-true-p gnus-registry-enabled)
             (gnus-try-warping-via-registry))))))
 
-(defun gnus-request-head (article group &optional to-buffer)
-  "Request the head of ARTICLE in GROUP.
-If TO-BUFFER, insert the article in that buffer."
+(defun gnus-request-head (article group)
+  "Request the head of ARTICLE in GROUP."
   (let* ((gnus-command-method (gnus-find-method-for-group group))
 	 (head (gnus-get-function gnus-command-method 'request-head t))
 	 res clean-up)
@@ -601,15 +600,13 @@ If TO-BUFFER, insert the article in that buffer."
      ;; Use `head' function.
      ((fboundp head)
       (setq res (funcall head article (gnus-group-real-name group)
-			 (nth 1 gnus-command-method)
-                         to-buffer)))
+			 (nth 1 gnus-command-method))))
      ;; Use `article' function.
      (t
-      (setq res (gnus-request-article article group to-buffer)
+      (setq res (gnus-request-article article group)
 	    clean-up t)))
     (when clean-up
-      (with-current-buffer (or to-buffer
-                               nntp-server-buffer)
+      (with-current-buffer nntp-server-buffer
 	(goto-char (point-min))
 	(when (search-forward "\n\n" nil t)
 	  (delete-region (1- (point)) (point-max)))
