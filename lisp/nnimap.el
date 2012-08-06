@@ -597,7 +597,7 @@ textual parts.")
 		(nnheader-ms-strip-cr)))
 	    (cons group article)))))))
 
-(deffoo nnimap-request-head (article &optional group server)
+(deffoo nnimap-request-head (article &optional group server to-buffer)
   (when group
     (setq group (nnimap-decode-gnus-group group)))
   (when (nnimap-change-group group server)
@@ -610,7 +610,7 @@ textual parts.")
 	 article (format "UID FETCH %%d %s"
 			 (nnimap-header-parameters)))
 	(let ((buffer (current-buffer)))
-	  (with-current-buffer nntp-server-buffer
+	  (with-current-buffer (or to-buffer nntp-server-buffer)
 	    (erase-buffer)
 	    (insert-buffer-substring buffer)
 	    (nnheader-ms-strip-cr)
