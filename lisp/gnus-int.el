@@ -599,7 +599,8 @@ real group. Does nothing on a real group."
 	    clean-up t))
      ;; Use `head' function.
      ((fboundp head)
-      (setq res (funcall head article (gnus-group-real-name group)
+      (setq res (funcall head article
+                         (and (not gnus-override-method) (gnus-group-real-name group))
 			 (nth 1 gnus-command-method))))
      ;; Use `article' function.
      (t
