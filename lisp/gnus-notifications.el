@@ -29,7 +29,7 @@
 
 ;;; Code:
 
-(require 'notifications)
+(require 'notifications nil t)
 (require 'gnus-sum)
 (require 'gnus-group)
 (require 'gnus-int)
@@ -61,6 +61,18 @@ not get notifications."
 (defvar gnus-notifications-sent nil
   "Notifications already sent.")
 
+(defun gnus-notifications-notify (from subject photo-file)
+  "Send a notification about a new mail."
+  (if (fboundp 'notifications-notify)
+      (notifications-notify
+       :title from
+       :body subject
+       :app-icon (image-search-load-path "gnus/gnus.png")
+       :app-name "Gnus"
+       :category "email.arrived"
+       :image-path photo-file)
+    (message "New message from %s: %s" from subject)))
+
 (defun gnus-notifications-get-photo (mail-address)
   "Get photo for mail address."
   (let ((google-photo (when (and gnus-notifications-use-google-contacts
@@ -87,7 +99,7 @@ Returns nil if no image found."
       (let ((photo-file (make-temp-file "gnus-notifications-photo-"))
             (coding-system-for-write 'binary))
         (with-temp-file photo-file
-            (insert photo))
+          (insert photo))
         photo-file))))
 
 ;;;###autoload
@@ -131,13 +143,10 @@ This is typically a function to add in
                          ;; Ignore mails from ourselves
                          (gnus-string-match-p gnus-ignored-from-addresses
                                               address)
-                         (notifications-notify :title (concat "New message from "
-                                                              (or (car address-components) address))
-                                               :body (mail-fetch-field "Subject")
-                                               :app-icon (image-search-load-path "gnus/gnus.png")
-                                               :app-name "Gnus"
-                                               :category "email.arrived"
-                                               :image-path photo-file))
+                         (gnus-notifications-notify
+                          (or (car address-components) address)
+                          (mail-fetch-field "Subject")
+                          photo-file))
                     ;; Register that we did notify this message
                     (setcdr group-notifications (cons article (cdr group-notifications))))
                   (when photo-file
