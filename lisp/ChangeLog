@@ -3,6 +3,12 @@
 	* gnus-notifications.el (gnus-notifications-notify): Use timeout from
 	`gnus-notifications-timeout'.
 	(gnus-notifications-timeout): Add.
+	(gnus-notifications-action): New function.
+	(gnus-notifications-notify): Add :action using
+	`gnus-notifications-action'.
+	(gnus-notifications-id-to-msg): New variable.
+	(gnus-notifications): Use `gnus-notifications-id-to-msg' to map
+	notifications id to messages.
 
 2012-08-29  Julien Danjou  <julien@danjou.info>
 
