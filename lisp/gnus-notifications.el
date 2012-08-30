@@ -58,6 +58,11 @@ not get notifications."
   :type 'integer
   :group 'gnus-notifications)
 
+(defcustom gnus-notifications-timeout nil
+  "Timeout used for notifications sent via `notifications-notify'."
+  :type 'integer
+  :group 'gnus-notifications)
+
 (defvar gnus-notifications-sent nil
   "Notifications already sent.")
 
@@ -70,6 +75,7 @@ not get notifications."
        :app-icon (image-search-load-path "gnus/gnus.png")
        :app-name "Gnus"
        :category "email.arrived"
+       :timeout gnus-notifications-timeout
        :image-path photo-file)
     (message "New message from %s: %s" from subject)))
 
