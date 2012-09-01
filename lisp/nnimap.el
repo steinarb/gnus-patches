@@ -985,11 +985,13 @@ textual parts.")
 If LIMIT, first try to limit the search to the N last articles."
   (with-current-buffer (nnimap-buffer)
     (erase-buffer)
-    (let* ((number-of-article
-           (catch 'found
-             (dolist (result (cdr (nnimap-change-group group server nil t)))
-               (when (equal "EXISTS" (cadr result))
-                 (throw 'found (car result))))))
+    (let* ((change-group-result (nnimap-change-group group server nil t))
+           (number-of-article
+            (and (listp change-group-result)
+                 (catch 'found
+                   (dolist (result (cdr change-group-result))
+                     (when (equal "EXISTS" (cadr result))
+                       (throw 'found (car result)))))))
            (sequence
             (nnimap-send-command "UID SEARCH%s HEADER Message-Id %S"
                                  (if (and limit number-of-article)
