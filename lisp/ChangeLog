@@ -6,6 +6,7 @@
 	Change (random t) to (random), now that the latter is more random.
 
 2012-08-31  Dave Abrahams  <dave@boostpro.com>
+	* nnimap.el (nnimap-change-group): Document result value
 
 	* auth-source.el (auth-sources): Fix macos keychain access.
 

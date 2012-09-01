@@ -1683,10 +1683,14 @@ textual parts.")
            nil t))))))
 
 (defun nnimap-change-group (group &optional server no-reconnect read-only)
-  "Change group to GROUP.
+  "Change group to GROUP if non-nil.
 If SERVER is set, check that server is connected, otherwise retry
-to reconnect, unless NO-RECONNECT is set to t.
-if READ-ONLY is set, send EXAMINE rather than SELECT to the server."
+to reconnect, unless NO-RECONNECT is set to t.  Return nil if
+unsuccessful in connecting.
+If GROUP is nil, return t.
+If READ-ONLY is set, send EXAMINE rather than SELECT to the server.
+Return the server's response to the SELECT or EXAMINE command.
+"
   (let ((open-result t))
     (when (and server
 	       (not (nnimap-server-opened server)))
