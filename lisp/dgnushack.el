@@ -141,6 +141,7 @@
 
 (eval-and-compile
   (when (featurep 'xemacs)
+    (defvar window-point-insertion-type nil)
     (unless (fboundp 'defadvice)
       (autoload 'defadvice "advice" nil nil 'macro))
     (unless (boundp 'help-echo-owns-message)
