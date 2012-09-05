@@ -1,6 +1,12 @@
+2012-09-05  John Wiegley  <johnw@newartisans.com>
+
+	* gnus.el (gnus-expand-group-parameters): Allow regexp substitutions in
+	sieve rules.
+
 2012-09-05  Jan Tatarik  <jan.tatarik@gmail.com>
 
-	* gnus-score.el (gnus-score-decode-text-parts): Use #' for the local function.
+	* gnus-score.el (gnus-score-decode-text-parts): Use #' for the local
+	function.
 
 	* gnus-logic.el (gnus-advanced-body): Allow scoring on decoded bodies.
 
