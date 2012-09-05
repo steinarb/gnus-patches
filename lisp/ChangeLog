@@ -1,5 +1,7 @@
 2012-09-05  Jan Tatarik  <jan.tatarik@gmail.com>
 
+	* gnus-score.el (gnus-score-decode-text-parts): Use #' for the local function.
+
 	* gnus-logic.el (gnus-advanced-body): Allow scoring on decoded bodies.
 
 	* gnus-score.el (gnus-score-decode-text-parts): Ditto.

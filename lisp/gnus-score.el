@@ -1743,7 +1743,7 @@ score in `gnus-newsgroup-scored' by SCORE."
       (save-excursion
         (article-goto-body)
         (delete-region (point) (point-max))
-        (mapc 'my-mm-display-part (mm-text-parts handles))
+        (mapc #'my-mm-display-part (mm-text-parts handles))
         handles))))
 
 (defun gnus-score-body (scores header now expire &optional trace)
