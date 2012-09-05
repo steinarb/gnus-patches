@@ -1,3 +1,8 @@
+2012-09-05  Julien Danjou  <julien@danjou.info>
+
+	* gnus-srvr.el (gnus-server-open-server): Don't message on failure:
+	this hide the real reason with a message giving absolutely no hint.
+
 2012-09-05  Lars Ingebrigtsen  <larsi@gnus.org>
 
 	* gnus-group.el (gnus-group-mark-article-read): Propagate the read mark
