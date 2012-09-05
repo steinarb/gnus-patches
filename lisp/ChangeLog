@@ -1,3 +1,8 @@
+2012-09-05  Julien Danjou  <julien@danjou.info>
+
+	* nnimap.el (nnimap-request-list): Revert change that made listing
+	synchronous.
+
 2012-09-03  Lars Ingebrigtsen  <larsi@gnus.org>
 
 	* dgnushack.el: XEmacs 21.5 compilation fix.
