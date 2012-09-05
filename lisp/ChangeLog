@@ -1,5 +1,8 @@
 2012-09-05  Lars Ingebrigtsen  <larsi@gnus.org>
 
+	* gnus-group.el (gnus-group-mark-article-read): Propagate the read mark
+	to the backend (bug#11804).
+
 	* message.el (message-insert-newsgroups): Don't insert newsgroup
 	duplicates (bug#12275).
 
