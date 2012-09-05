@@ -1,3 +1,9 @@
+2012-09-05  Magnus Henoch  <magnus.henoch@gmail.com>
+
+	* nnmaildir.el: Make nnmaildir understand and write maildir flags.
+	That is, rename files from "unique:2," to "unique:2,S" for "seen", etc.
+	This should make nnmaildir more usable with offlineimap.
+
 2012-09-05  Julien Danjou  <julien@danjou.info>
 
 	* nnimap.el (nnimap-request-list): Revert change that made listing
