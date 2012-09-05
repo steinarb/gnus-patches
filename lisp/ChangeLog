@@ -1,3 +1,8 @@
+2012-09-05  Lars Ingebrigtsen  <larsi@gnus.org>
+
+	* message.el (message-insert-newsgroups): Don't insert newsgroup
+	duplicates (bug#12275).
+
 2012-09-05  John Wiegley  <johnw@newartisans.com>
 
 	* gnus.el (gnus-expand-group-parameters): Allow regexp substitutions in
