@@ -1727,8 +1727,7 @@ to reconnect, unless NO-RECONNECT is set to t.  Return nil if
 unsuccessful in connecting.
 If GROUP is nil, return t.
 If READ-ONLY is set, send EXAMINE rather than SELECT to the server.
-Return the server's response to the SELECT or EXAMINE command.
-"
+Return the server's response to the SELECT or EXAMINE command."
   (let ((open-result t))
     (when (and server
 	       (not (nnimap-server-opened server)))
