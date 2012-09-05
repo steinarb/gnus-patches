@@ -993,16 +993,19 @@ If LIMIT, first try to limit the search to the N last articles."
                      (when (equal "EXISTS" (cadr result))
                        (throw 'found (car result)))))))
            (sequence
-            (nnimap-send-command "UID SEARCH%s HEADER Message-Id %S"
-                                 (if (and limit number-of-article)
-                                     ;; The -1 is because IMAP message
-                                     ;; numbers are one-based rather than
-                                     ;; zero-based.
-                                     (format " %s:*" (- (string-to-number number-of-article) limit -1))
-                                   "")
-                                 message-id)))
+            (nnimap-send-command
+	     "UID SEARCH%s HEADER Message-Id %S"
+	     (if (and limit number-of-article)
+		 ;; The -1 is because IMAP message
+		 ;; numbers are one-based rather than
+		 ;; zero-based.
+		 (format " %s:*" (- (string-to-number number-of-article)
+				    limit -1))
+	       "")
+	     message-id)))
       (when (nnimap-wait-for-response sequence)
-        (let ((article (car (last (cdr (assoc "SEARCH" (nnimap-parse-response)))))))
+        (let ((article (car (last (cdr (assoc "SEARCH"
+					      (nnimap-parse-response)))))))
           (if article
               (string-to-number article)
             (when (and limit number-of-article)
