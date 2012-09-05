@@ -1,5 +1,8 @@
 2012-09-05  Martin Stjernholm  <mast@lysator.liu.se>
 
+	* nnimap.el (nnimap-request-move-article): Decode the group name when
+	doing internal moves to avoid charset issues.
+
 	* gnus-demon.el (gnus-demon-init): Fixed regression when IDLE is t and
 	TIME is set.
 

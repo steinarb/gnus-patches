@@ -857,6 +857,8 @@ textual parts.")
 (deffoo nnimap-request-move-article (article group server accept-form
 					     &optional last internal-move-group)
   (setq group (nnimap-decode-gnus-group group))
+  (when internal-move-group
+    (setq internal-move-group (nnimap-decode-gnus-group internal-move-group)))
   (with-temp-buffer
     (mm-disable-multibyte)
     (when (funcall (if internal-move-group
