@@ -1196,6 +1196,15 @@ If LIMIT, first try to limit the search to the N last articles."
 		groups))))
     (nreverse groups)))
 
+(defun nnimap-get-responses (sequences)
+  (let (responses)
+    (dolist (sequence sequences)
+      (goto-char (point-min))
+      (when (re-search-forward (format "^%d " sequence) nil t)
+        (push (list sequence (nnimap-parse-response))
+              responses)))
+    responses))
+
 (deffoo nnimap-request-list (&optional server)
   (when (nnimap-change-group nil server)
     (with-current-buffer nntp-server-buffer

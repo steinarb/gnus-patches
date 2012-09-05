@@ -2,6 +2,7 @@
 
 	* nnimap.el (nnimap-request-list): Revert change that made listing
 	synchronous.
+	(nnimap-get-responses): Restore.
 
 2012-09-03  Lars Ingebrigtsen  <larsi@gnus.org>
 
