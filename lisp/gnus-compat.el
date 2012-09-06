@@ -104,6 +104,24 @@ TRASH is ignored."
     (and (boundp var)
 	 (symbol-value var))))
 
+
+;; Emacs less than 24.3
+(unless (fboundp 'add-face)
+  (defun add-face (beg end face)
+    "Combine FACE BEG and END."
+    (let ((b beg))
+      (while (< b end)
+	(let ((oldval (get-text-property b 'face)))
+	  (put-text-property
+	   b (setq b (next-single-property-change b 'face nil end))
+	   'face (cond ((null oldval)
+			face)
+		       ((and (consp oldval)
+			     (not (keywordp (car oldval))))
+			(cons face oldval))
+		       (t
+			(list face oldval)))))))))
+
 (provide 'gnus-compat)
 
 ;; gnus-compat.el ends here
