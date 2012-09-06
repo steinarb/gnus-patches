@@ -1919,8 +1919,11 @@ Same as `string-match' except this function does not change the match data."
     "Return non-nil if STR1 is a prefix of STR2.
 If IGNORE-CASE is non-nil, the comparison is done without paying attention
 to case differences."
-    (eq t (compare-strings str1 nil nil
-			   str2 0 (length str1) ignore-case))))
+    (and (<= (length str1) (length str2))
+	 (let ((prefix (substring str2 0 (length str1))))
+	   (if ignore-case
+	       (string-equal (downcase str1) (downcase prefix))
+	     (string-equal str1 prefix))))))
 
 (eval-and-compile
   (if (fboundp 'macroexpand-all)
