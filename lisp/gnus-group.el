@@ -2386,7 +2386,7 @@ specified by `gnus-gmane-group-download-format'."
 	       group start (+ start range)))
       (write-region (point-min) (point-max) tmpfile)
       (gnus-group-read-ephemeral-group
-       (format "%s.start-%s.range-%s" group start range)
+       (format "nndoc+ephemeral:%s.start-%s.range-%s" group start range)
        `(nndoc ,tmpfile
 	       (nndoc-article-type mbox))))
     (delete-file tmpfile)))
@@ -2479,7 +2479,7 @@ the bug number, and browsing the URL must return mbox output."
 			 "/.*$" ""))))
       (write-region (point-min) (point-max) tmpfile)
       (gnus-group-read-ephemeral-group
-       (format "gnus-read-ephemeral-bug:%s"
+       (format "nndoc+ephemeral:bug#%s"
 	       (mapconcat 'number-to-string ids ","))
        `(nndoc ,tmpfile
 	       (nndoc-article-type mbox))

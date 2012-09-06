@@ -1,3 +1,9 @@
+2012-09-06  Juri Linkov  <juri@jurta.org>
+
+	* gnus-group.el (gnus-read-ephemeral-gmane-group): Change the naming
+	scheme for buffer names to be more consistent with other group and
+	article buffer names in Gnus.
+
 2012-09-06  Lars Ingebrigtsen  <larsi@gnus.org>
 
 	* gnus-util.el
