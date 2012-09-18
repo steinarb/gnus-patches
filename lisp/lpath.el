@@ -15,6 +15,9 @@
 		url-version w3-meta-charset-content-type-regexp
 		w3-meta-content-type-charset-regexp))
 
+  (when (<= emacs-major-version 23)
+    (maybe-bind '(mail-encode-mml)))
+
   (when (<= emacs-major-version 22)
     (defun ecomplete-add-item (type key text))
     (defun ecomplete-save nil)
@@ -82,12 +85,13 @@
      epa-file-encrypt-to eudc-protocol filladapt-mode
      gnus-agent-expire-current-dirs help-xref-stack-item idna-program
      installation-directory iswitchb-mode iswitchb-temp-buflist line-spacing
-     mark-active mouse-selection-click-count mouse-selection-click-count-buffer
-     ps-print-color-p rmail-default-file rmail-default-rmail-file
-     rmail-insert-mime-forwarded-message-function show-trailing-whitespace
-     smtpmail-default-smtp-server temporary-file-directory tool-bar-mode
-     transient-mark-mode url-version w3-meta-charset-content-type-regexp
-     w3m-link-map w3-meta-content-type-charset-regexp))
+     mail-encode-mml mark-active mouse-selection-click-count
+     mouse-selection-click-count-buffer ps-print-color-p rmail-default-file
+     rmail-default-rmail-file rmail-insert-mime-forwarded-message-function
+     show-trailing-whitespace smtpmail-default-smtp-server
+     temporary-file-directory tool-bar-mode transient-mark-mode url-version
+     w3-meta-charset-content-type-regexp w3m-link-map
+     w3-meta-content-type-charset-regexp))
 
   (when (or (and (= emacs-major-version 21) (= emacs-minor-version 4))
 	    (featurep 'sxemacs))
