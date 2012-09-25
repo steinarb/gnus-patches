@@ -1,3 +1,8 @@
+2012-09-25  Chong Yidong  <cyd@gnu.org>
+
+	* password-cache.el (password-read-and-add): Use a declare form to mark
+	this function obsolete.
+
 2012-09-19  Katsumi Yamaoka  <yamaoka@jpl.org>
 
 	* lpath.el: Bind mail-encode-mml for old Emacsen.
