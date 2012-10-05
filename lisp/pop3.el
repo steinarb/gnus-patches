@@ -182,7 +182,7 @@ Shorter values mean quicker response, but are more CPU intensive.")
 ;; ("UIDL1" "UIDL2" "UIDL3"...)
 
 (defvar pop3-uidl-saved)
-;; Locally saved UIDL data; a list of the server, the user, and the UIDL
+;; Locally saved UIDL data; an alist of the server, the user, and the UIDL
 ;; and timestamp pairs:
 ;; (("SERVER_A" ("USER_A1" "UIDL1" TIMESTAMP1 "UIDL2" TIMESTAMP2...)
 ;;              ("USER_A2" "UIDL1" TIMESTAMP1 "UIDL2" TIMESTAMP2...)
