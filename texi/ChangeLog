@@ -1,3 +1,8 @@
+2012-10-05  Katsumi Yamaoka  <yamaoka@jpl.org>
+
+	* gnus.texi (Mail Source Specifiers):
+	Document :leave keyword used for pop mail source.
+
 2012-06-11  Lars Magne Ingebrigtsen  <larsi@gnus.org>
 
 	* gnus.texi (POP before SMTP): POP-before-SMTP works with all sending
