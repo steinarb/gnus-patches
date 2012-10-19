@@ -1,3 +1,8 @@
+2012-10-19  Julien Danjou  <julien@danjou.info>
+
+	* gnus-art.el: Require gnus-util because it uses
+	`gnus-timer--function'.
+
 2012-10-17  Kazuhiro Ito  <kzhr@d1.dion.ne.jp>  (tiny change)
 
 	* starttls.el (starttls-extra-arguments): Doc fix.

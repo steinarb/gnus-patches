@@ -33,6 +33,7 @@
 (defvar w3m-minor-mode-map)
 
 (require 'gnus)
+(require 'gnus-util)
 (require 'gnus-sum)
 (require 'gnus-spec)
 (require 'gnus-int)
