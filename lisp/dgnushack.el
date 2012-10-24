@@ -576,14 +576,14 @@ but which should be robust in the unexpected case that an error is signaled."
 	(makunbound 'dgnushack-obsolete-name)
 	(makunbound 'dgnushack-current-name)))
   (wrong-number-of-arguments
-   (define-compiler-macro
-     define-obsolete-variable-alias (oldvar newvar &rest args)
-     `(funcall ,(symbol-function 'define-obsolete-variable-alias)
-	       ,oldvar ,newvar))
    (defadvice define-obsolete-variable-alias (around ignore-rest-args
 						     (oldvar newvar &rest args)
 						     activate)
      "Ignore arguments other than the 1st and the 2nd ones."
-     (ad-Orig-define-obsolete-variable-alias oldvar newvar))))
+     (ad-Orig-define-obsolete-variable-alias oldvar newvar))
+   (define-compiler-macro
+     define-obsolete-variable-alias (oldvar newvar &rest args)
+     `(funcall ,(symbol-function 'ad-Orig-define-obsolete-variable-alias)
+	       ,oldvar ,newvar))))
 
 ;;; dgnushack.el ends here
