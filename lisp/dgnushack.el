@@ -565,4 +565,25 @@ but which should be robust in the unexpected case that an error is signaled."
 	   (progn ,@body)
 	 (error (message "Error: %S" ,err) nil)))))
 
+;; XEmacs's `define-obsolete-variable-alias' takes only two arguments:
+;; (define-obsolete-variable-alias OLDVAR NEWVAR)
+(condition-case nil
+    (progn
+      (defvar dgnushack-obsolete-name nil)
+      (defvar dgnushack-current-name nil)
+      (unwind-protect
+	  (define-obsolete-variable-alias 'obsolete-name 'current-name "0")
+	(makunbound 'dgnushack-obsolete-name)
+	(makunbound 'dgnushack-current-name)))
+  (wrong-number-of-arguments
+   (define-compiler-macro
+     define-obsolete-variable-alias (oldvar newvar &rest args)
+     `(funcall ,(symbol-function 'define-obsolete-variable-alias)
+	       ,oldvar ,newvar))
+   (defadvice define-obsolete-variable-alias (around ignore-rest-args
+						     (oldvar newvar &rest args)
+						     activate)
+     "Ignore arguments other than the 1st and the 2nd ones."
+     (ad-Orig-define-obsolete-variable-alias oldvar newvar))))
+
 ;;; dgnushack.el ends here
