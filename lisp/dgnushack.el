@@ -572,7 +572,8 @@ but which should be robust in the unexpected case that an error is signaled."
       (defvar dgnushack-obsolete-name nil)
       (defvar dgnushack-current-name nil)
       (unwind-protect
-	  (define-obsolete-variable-alias 'obsolete-name 'current-name "0")
+	  (define-obsolete-variable-alias
+	    'dgnushack-obsolete-name 'dgnushack-current-name "0")
 	(makunbound 'dgnushack-obsolete-name)
 	(makunbound 'dgnushack-current-name)))
   (wrong-number-of-arguments
