@@ -1,3 +1,8 @@
+2012-10-25  Tassilo Horn  <tsdh@gnu.org>
+
+	* gnus-dired.el (gnus-dired-attach): Attach to last used message buffer
+	by default.  Patch provided by Stephen Eglen.
+
 2012-10-25  Katsumi Yamaoka  <yamaoka@jpl.org>
 
 	* dgnushack.el (define-compiler-macro): Add autoload for XEmacs 21.4
