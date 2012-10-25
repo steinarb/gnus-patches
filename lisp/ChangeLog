@@ -1,3 +1,8 @@
+2012-10-25  Katsumi Yamaoka  <yamaoka@jpl.org>
+
+	* dgnushack.el (define-compiler-macro): Add autoload for XEmacs 21.4
+	and SXEmacs.  Suggested by Nelson Ferreira <nelson.ferreira@ieee.org>.
+
 2012-10-24  Katsumi Yamaoka  <yamaoka@jpl.org>
 
 	* dgnushack.el (define-obsolete-variable-alias): Add a compiler-marco

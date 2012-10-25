@@ -178,6 +178,7 @@
     (autoload 'customize-set-variable "cus-edit" nil t)
     (autoload 'customize-variable "cus-edit" nil t)
     (autoload 'debug "debug" nil t)
+    (autoload 'define-compiler-macro "cl-macs" nil nil 'macro)
     (autoload 'sha1 "sha1")
     (if (featurep 'mule)
 	(unless (locate-library "mule-ccl")
