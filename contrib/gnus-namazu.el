@@ -363,9 +363,10 @@ This means that the group \"nnimap+server:INBOX.group\" is placed in
 	   (when (memq (car (setq method (gnus-find-method-for-group group)))
 		       '(nnml nnmh))
 	     (when (file-directory-p
-		    (setq dir (nnmail-group-pathname
-			       (gnus-group-short-name group)
-			       (gnus-namazu/server-directory method))))
+		    (setq dir (let (file-name-handler-alist)
+				(nnmail-group-pathname
+				 (gnus-group-short-name group)
+				 (gnus-namazu/server-directory method)))))
 	       (push (cons dir group) alist)))
 	   (dolist (pair gnus-namazu-remote-groups)
 	     (when (setq dir
@@ -375,7 +376,8 @@ This means that the group \"nnimap+server:INBOX.group\" is placed in
 			     (and (stringp (car pair))
 				  (string-match (car pair) group)
 				  (substring group (match-end 0)))))
-	       (setq dir (nnmail-group-pathname dir "/"))
+	       (setq dir (let (file-name-handler-alist)
+			   (nnmail-group-pathname dir "/")))
 	       (push (cons (concat (cdr pair)
 				   ;; nnmail-group-pathname() on some
 				   ;; systems returns pathnames which

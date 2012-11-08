@@ -1,3 +1,9 @@
+2012-11-08  TSUCHIYA Masatoshi  <tsuchiya@namazu.org>
+
+	* gnus-namazu.el (gnus-namazu/make-directory-table): Bind
+	file-name-handler-alist to nil, in order to avoid that semicolons
+	included in group names trigger tramp related handlers.
+
 2011-12-02  Katsumi Yamaoka  <yamaoka@jpl.org>
 
 	* compface.el (uncompface): Update the header format of icon data for
