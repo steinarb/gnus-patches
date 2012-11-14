@@ -178,7 +178,6 @@
     (autoload 'customize-set-variable "cus-edit" nil t)
     (autoload 'customize-variable "cus-edit" nil t)
     (autoload 'debug "debug" nil t)
-    (autoload 'define-compiler-macro "cl-macs" nil nil 'macro)
     (autoload 'sha1 "sha1")
     (if (featurep 'mule)
 	(unless (locate-library "mule-ccl")
@@ -582,10 +581,10 @@ but which should be robust in the unexpected case that an error is signaled."
 						     (oldvar newvar &rest args)
 						     activate)
      "Ignore arguments other than the 1st and the 2nd ones."
-     (ad-Orig-define-obsolete-variable-alias oldvar newvar))
-   (define-compiler-macro
-     define-obsolete-variable-alias (oldvar newvar &rest args)
-     `(funcall ,(symbol-function 'ad-Orig-define-obsolete-variable-alias)
-	       ,oldvar ,newvar))))
+     ad-do-it)
+   (put 'define-obsolete-variable-alias 'byte-optimizer
+	(lambda (form)
+	  (setcdr (nthcdr 2 form) nil)
+	  form))))
 
 ;;; dgnushack.el ends here

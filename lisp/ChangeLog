@@ -1,3 +1,7 @@
+2012-11-14  Katsumi Yamaoka  <yamaoka@jpl.org>
+
+	* dgnushack.el (define-obsolete-variable-alias): Simplify.
+
 2012-11-08  Katsumi Yamaoka  <yamaoka@jpl.org>
 
 	* gnus-art.el (gnus-article-browse-html-parts): Always replace charset
