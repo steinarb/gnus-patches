@@ -1,3 +1,10 @@
+2012-11-19  Stefan Monnier  <monnier@iro.umontreal.ca>
+
+	* color.el: Don't require cl.
+	(color-complement): `caddr' -> `nth 2'.
+
+	* time-date.el (time-to-seconds): De-obsolete.
+
 2012-11-19  Katsumi Yamaoka  <yamaoka@jpl.org>
 
 	* message.el (message-get-reply-headers):
