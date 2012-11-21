@@ -1,3 +1,7 @@
+2012-11-21  Paul Eggert  <eggert@cs.ucla.edu>
+
+	* time-date.el: Commentary fix.
+
 2012-11-19  Stefan Monnier  <monnier@iro.umontreal.ca>
 
 	* color.el: Don't require cl.
