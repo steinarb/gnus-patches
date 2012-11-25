@@ -1,3 +1,8 @@
+2012-11-24  Paul Eggert  <eggert@cs.ucla.edu>
+
+	* doclicense.texi: Update to latest version from FSF.
+	This is just minor editorial changes.
+
 2012-10-24  Paul Eggert  <eggert@penguin.cs.ucla.edu>
 
 	Update manual for new time stamp format (Bug#12706).
