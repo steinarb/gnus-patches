@@ -101,6 +101,7 @@
 (require 'nnheader)
 (require 'nnmail)
 (require 'gnus-sum)
+(require 'gmm-util)
 
 ;; To suppress byte-compile warning.
 (eval-when-compile
@@ -780,9 +781,9 @@ than the period that is set to `gnus-namazu-index-update-interval'"
 (defun gnus-namazu/update-p (directory &optional force)
   "Return the DIRECTORY when the index undef the DIRECTORY should be updated."
   (setq directory (file-name-as-directory (expand-file-name directory)))
-  (labels ((error-message (format &rest args)
-			  (apply (if force 'error 'message) format args)
-			  nil))
+  (gmm-labels ((error-message (format &rest args)
+			      (apply (if force 'error 'message) format args)
+			      nil))
     (if gnus-namazu/update-process
 	(error-message "%s" "Can not run two update processes simultaneously")
       (and (or force
