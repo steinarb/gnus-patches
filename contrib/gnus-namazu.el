@@ -101,7 +101,7 @@
 (require 'nnheader)
 (require 'nnmail)
 (require 'gnus-sum)
-(require 'gmm-util)
+(require 'gmm-utils)
 
 ;; To suppress byte-compile warning.
 (eval-when-compile

@@ -1,3 +1,7 @@
+2012-12-12  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	* gnus-namazu.el: Fix typo: (require 'gmm-util) -> (require 'gmm-utils)
+
 2012-12-04  Katsumi Yamaoka  <yamaoka@jpl.org>
 
 	* gnus-namazu.el (gnus-namazu/update-p): Use gmm-labels.
