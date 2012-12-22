@@ -1,3 +1,12 @@
+2012-12-21  Glenn Morris  <rgm@gnu.org>
+
+	* auth.texi, epa.texi, gnus-coding.texi, sasl.texi:
+	May as well just include doclicense.texi in everything.
+
+	* auth.texi, emacs-mime.texi, epa.texi, gnus-coding.texi, gnus.texi,
+	message.texi, sasl.texi, sieve.texi: Do not mention buying copies from
+	the FSF, which does not publish these manuals.
+
 2012-12-06  Paul Eggert  <eggert@cs.ucla.edu>
 
 	* doclicense.texi: Update to latest version from FSF.
