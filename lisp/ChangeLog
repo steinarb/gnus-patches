@@ -1,5 +1,7 @@
 2012-12-24  Lars Ingebrigtsen  <larsi@gnus.org>
 
+	* gnus-srvr.el (gnus-browse-delete-group): New command and keystroke.
+
 	* gnus-sum.el (gnus-summary-hide-thread): If point were further to the
 	right than four characters, this command would move point to
 	`point-max'.  Don't do that.
