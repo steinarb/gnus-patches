@@ -1,5 +1,9 @@
 2012-12-24  Lars Ingebrigtsen  <larsi@gnus.org>
 
+	* gnus-sum.el (gnus-summary-hide-thread): If point were further to the
+	right than four characters, this command would move point to
+	`point-max'.  Don't do that.
+
 	* gnus-group.el (gnus-group-read-ephemeral-group): Set the active data
 	to nil to allow re-selecting groups that gain articles.
 	(gnus-bug-group-download-format-alist): Update the URL.
