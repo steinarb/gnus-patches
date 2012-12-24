@@ -1,5 +1,7 @@
 2012-12-24  Lars Ingebrigtsen  <larsi@gnus.org>
 
+	* gnus-srvr.el (gnus-browse-delete-group): Fix syntax error.
+
 	* message.el (message-ignored-news-headers): Always remove
 	X-Message-SMTP-Method to avoid information leakage if the user
 	mistakenly inserts the header into news messages.

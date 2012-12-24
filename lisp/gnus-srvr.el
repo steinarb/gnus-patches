@@ -965,7 +965,7 @@ how new groups will be entered into the group buffer."
   (interactive (list (gnus-browse-group-name)))
   (gnus-group-describe-group nil group))
 
-(defun gnus-browse-delete-group (group)
+(defun gnus-browse-delete-group (group force)
   "Delete the current group.  Only meaningful with editable groups.
 If FORCE (the prefix) is non-nil, all the articles in the group will
 be deleted.  This is \"deleted\" as in \"removed forever from the face
