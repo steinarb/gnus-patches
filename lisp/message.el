@@ -3858,7 +3858,9 @@ prefix, and don't delete any headers."
   (interactive "P")
   ;; eval the let forms contained in message-cite-style
   (eval
-   `(let ,message-cite-style
+   `(let ,(if (symbolp message-cite-style)
+	      (symbol-value message-cite-style)
+	    message-cite-style)
       (message--yank-original-internal ',arg))))
 
 (defun message-yank-buffer (buffer)
