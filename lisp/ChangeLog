@@ -1,5 +1,8 @@
 2012-12-25  Lars Ingebrigtsen  <larsi@gnus.org>
 
+	* gnus-agent.el (gnus-agent-fetch-articles): Don't fetch articles from
+	offline groups (bug#11937).
+
 	* message.el (message-yank-original): When using customize to set the
 	value of `message-cite-style', the variable it set to a symbol that's
 	the name of the variable, which must then be dereferenced (bug#12616).
