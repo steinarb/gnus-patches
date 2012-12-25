@@ -3497,8 +3497,8 @@ If the setup was successful, non-nil is returned."
 	  (set-buffer buffer)
 	  (setq gnus-summary-buffer (current-buffer))
 	  (not gnus-newsgroup-prepared))
-      ;; Fix by Sudish Joseph <joseph@cis.ohio-state.edu>
-      (setq gnus-summary-buffer (set-buffer (gnus-get-buffer-create buffer)))
+      (set-buffer (gnus-get-buffer-create buffer))
+      (setq gnus-summary-buffer (current-buffer))
       (gnus-summary-mode group)
       (when (gnus-group-quit-config group)
 	(set (make-local-variable 'gnus-single-article-buffer) nil))
@@ -3556,11 +3556,7 @@ buffer that was in action when the last article was fetched."
 	    (if (consp (car locals))
 		(set (caar locals) (pop vlist))
 	      (set (car locals) (pop vlist)))
-	    (setq locals (cdr locals))))
-	;; The article buffer also has local variables.
-	(when (gnus-buffer-live-p gnus-article-buffer)
-	  (set-buffer gnus-article-buffer)
-	  (setq gnus-summary-buffer summary))))))
+	    (setq locals (cdr locals))))))))
 
 (defun gnus-summary-article-unread-p (article)
   "Say whether ARTICLE is unread or not."
@@ -7882,7 +7878,6 @@ If STOP is non-nil, just stop when reaching the end of the message.
 
 Also see the variable `gnus-article-skip-boring'."
   (interactive "P")
-  (setq gnus-summary-buffer (current-buffer))
   (gnus-set-global-variables)
   (let ((article (gnus-summary-article-number))
 	(article-window (get-buffer-window gnus-article-buffer t))
