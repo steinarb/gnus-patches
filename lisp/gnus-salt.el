@@ -659,7 +659,7 @@ Two predefined functions are available:
 	(while (and list
 		    (not (eval (caar list))))
 	  (setq list (cdr list)))))
-    (unless (eq (setq face (cdar list)) (get-text-property beg 'face))
+    (unless (eq (setq face (cdar list)) (gnus-get-text-property-excluding-characters-with-faces beg 'face))
       (gnus-put-text-property-excluding-characters-with-faces
        beg end 'face
        (if (boundp face) (symbol-value face) face)))))

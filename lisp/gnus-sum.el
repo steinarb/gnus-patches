@@ -12535,7 +12535,7 @@ If REVERSE, save parts that do not match TYPE."
                         (memq article gnus-newsgroup-undownloaded)
                         (not (memq article gnus-newsgroup-cached)))))
     (let ((face (funcall (gnus-summary-highlight-line-0))))
-      (unless (eq face (get-text-property beg 'face))
+      (unless (eq face (gnus-get-text-property-excluding-characters-with-faces beg 'face))
 	(gnus-put-text-property-excluding-characters-with-faces
 	 beg (point-at-eol) 'face
 	 (setq face (if (boundp face) (symbol-value face) face)))

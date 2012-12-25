@@ -1,3 +1,16 @@
+2012-09-13  Wolfgang Jenkner  <wjenkner@inode.at>
+
+	* lisp/gnus-spec.el (gnus-face-face-function): Initialize the value of
+	the `face' property with a list whose car is the face specified in the
+	format string and whose cdr is (nil).
+	* lisp/gnus-util.el
+	(gnus-put-text-property-excluding-characters-with-faces): Change
+	accordingly.
+	(gnus-get-text-property-excluding-characters-with-faces): New function.
+	* lisp/gnus-sum.el (gnus-summary-highlight-line):
+	* lisp/gnus-salt.el (gnus-tree-highlight-node):
+	* lisp/gnus-group.el (gnus-group-highlight-line): Use it.
+
 2012-12-25  Lars Ingebrigtsen  <larsi@gnus.org>
 
 	* nnimap.el (nnimap-authenticator): Expand to allow specifying the
