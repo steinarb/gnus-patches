@@ -823,7 +823,7 @@ If set, it overrides the setting of `mml2015-sign-with-sender'."
 (defun mml2015-epg-key-image (key-id)
   "Return the image of a key, if any"
   (with-temp-buffer
-    (unless (featurep 'xemacs) (set-buffer-multibyte nil))
+    (mm-set-buffer-multibyte nil)
     (let* ((coding-system-for-write 'binary)
            (coding-system-for-read 'binary)
            (data (shell-command-to-string

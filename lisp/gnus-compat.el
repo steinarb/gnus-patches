@@ -129,11 +129,6 @@ TRASH is ignored."
       (forward-line arg))
     (beginning-of-line)))
 
-;; XEmacs 21.5
-(unless (fboundp 'set-buffer-multibyte)
-  (defun set-buffer-multibyte (flag)
-    nil))
-
 (provide 'gnus-compat)
 
 ;; gnus-compat.el ends here
