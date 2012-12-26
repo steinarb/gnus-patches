@@ -4,6 +4,12 @@
 
 	* gnus-compat.el (set-buffer-multibyte): Remove.
 
+2012-12-25  Adam Sjøgren  <asjo@koldfront.dk>
+
+	* mml2015.el (mml2015-epg-key-image): use --attribute-fd rather than
+	temporary file to get PGP key image. Pass no-show-photos when extracting
+	image to avoid having it pop up twice.
+
 2012-12-26  Lars Ingebrigtsen  <larsi@gnus.org>
 
 	* gnus-art.el (gnus-article-treat-types): Include text/html as parts
