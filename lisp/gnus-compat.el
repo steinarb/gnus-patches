@@ -122,6 +122,13 @@ TRASH is ignored."
 		       (t
 			(list face oldval)))))))))
 
+(unless (fboundp 'move-beginning-of-line)
+  (defun move-beginning-of-line (arg)
+    (interactive "p")
+    (unless (= arg 1)
+      (forward-line arg))
+    (beginning-of-line)))
+
 (provide 'gnus-compat)
 
 ;; gnus-compat.el ends here
