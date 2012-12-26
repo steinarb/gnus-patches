@@ -1,5 +1,8 @@
 2012-12-26  Lars Ingebrigtsen  <larsi@gnus.org>
 
+	* gnus-art.el (gnus-article-treat-types): Include text/html as parts
+	eligible for treatment.
+
 	* gnus-util.el (gnus-goto-colon): Move to the beginning of the visual
 	lines.  This makes summary commands with hidden threads work more
 	reliably.
