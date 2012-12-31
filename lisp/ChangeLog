@@ -1,3 +1,8 @@
+2012-12-31  Lars Magne Ingebrigtsen  <larsi@gnus.org>
+
+	* nnimap.el (nnimap-update-info): Treat \Deleted articles as \Read
+	articles.
+
 2012-12-29  Lars Magne Ingebrigtsen  <larsi@gnus.org>
 
 	* nnfolder.el (nnfolder-recursive-directory-files): New function.

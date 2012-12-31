@@ -1463,7 +1463,9 @@ If LIMIT, first try to limit the search to the N last articles."
 		     (gnus-set-difference
 		      (gnus-set-difference
 		       existing
-		       (cdr (assoc '%Seen flags)))
+		       (gnus-sorted-union
+			(cdr (assoc '%Seen flags))
+			(cdr (assoc '%Deleted flags))))
 		      (cdr (assoc '%Flagged flags)))))
 		   (read (gnus-range-difference
 			  (cons start-article high) unread)))
