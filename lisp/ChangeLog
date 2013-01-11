@@ -1,3 +1,9 @@
+2013-01-11  Julien Danjou  <julien@danjou.info>
+
+	* color.el (color-rgb-to-hsv): Fix conversion computing in case min and
+	max are almost equal. Also return the correct value for V which is
+	already between 0 and 1.
+
 2013-01-10  Uwe Brauer  <oub@mat.ucm.es>  (tiny change)
 
 	* mml-smime.el (mml-smime-encrypt-to-self): New user option analogous
