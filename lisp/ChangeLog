@@ -1,3 +1,9 @@
+2013-02-13  Juri Linkov  <juri@jurta.org>
+
+	* gnus-art.el (gnus-article-mode-map):
+	* gnus-sum.el (gnus-summary-mode-map, gnus-summary-article-map):
+	Make S-SPC scroll in the opposite sense to SPC.  (Bug#2145)
+
 2013-02-07  Gábor Vida  <gabor.v.vida@ericsson.com>  (tiny change)
 
 	* auth-source.el (auth-source-format-prompt): Don't get confused by
