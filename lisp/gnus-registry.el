@@ -299,7 +299,8 @@ This is not required after changing `gnus-registry-cache-file'."
           (setq gnus-registry-db
 		(gnus-registry-fixup-registry
 		 (condition-case nil
-		     (eieio-persistent-read file 'registry-db)
+		     (with-no-warnings
+		       (eieio-persistent-read file 'registry-db))
 		   ;; Older EIEIO versions do not check the class name.
 		   ('wrong-number-of-arguments
 		    (eieio-persistent-read file)))))
