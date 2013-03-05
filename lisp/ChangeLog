@@ -1,3 +1,9 @@
+2013-03-05  Paul Eggert  <eggert@cs.ucla.edu>
+
+	* deuglify.el, gnus-delay.el, gnus-spec.el, gnus-sum.el, html2text.el,
+	message.el, mm-decode.el, mml1991.el, nnir.el, shr.el, utf7.el:
+	Prefer UTF-8 when the encoding shouldn't matter and changes are small.
+
 2013-03-03  Ted Phelps  <phelps@gnusto.com>
 
 	* shr.el: Make all the overlays set the `evaporate' property so that
