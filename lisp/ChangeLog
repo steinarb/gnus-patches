@@ -1,3 +1,7 @@
+2013-03-07  Paul Eggert  <eggert@cs.ucla.edu>
+
+	* gnus-cite.el: Specify utf-8, not iso-8859-1, for ASCII file.
+
 2013-03-06  Katsumi Yamaoka  <yamaoka@jpl.org>
 
 	* nndir.el (nndir-request-list): Remove 2nd argument passed to

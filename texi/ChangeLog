@@ -2,6 +2,11 @@
 
 	* gnus-faq.texi (FAQ 3-11): Now Gnus supports POP3 UIDL.
 
+2013-03-07  Paul Eggert  <eggert@cs.ucla.edu>
+
+	* emacs-mime.texi, gnus-coding.texi: Specify utf-8, not iso-8859-1, for
+	ASCII files.
+
 2013-03-04  Paul Eggert  <eggert@cs.ucla.edu>
 
 	* emacs-mime.texi: Switch from Latin-1 to UTF-8.
