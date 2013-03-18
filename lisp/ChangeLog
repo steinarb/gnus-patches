@@ -1,3 +1,7 @@
+2013-03-18  Sam Steingold  <sds@gnu.org>
+
+	* message.el (message-bury): Minor cleanup.
+
 2013-03-07  Paul Eggert  <eggert@cs.ucla.edu>
 
 	* gnus-cite.el: Specify utf-8, not iso-8859-1, for ASCII file.
