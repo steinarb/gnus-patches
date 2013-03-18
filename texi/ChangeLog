@@ -1,3 +1,9 @@
+2013-03-17  Paul Eggert  <eggert@cs.ucla.edu>
+
+	doc: convert some TeX accents to UTF-8
+	* emacs-mime.texi (Interface Functions): Use 'ï' rather than
+	'@"{@dotless{i}}'.
+
 2013-03-07  Katsumi Yamaoka  <yamaoka@jpl.org>
 
 	* gnus-faq.texi (FAQ 3-11): Now Gnus supports POP3 UIDL.
