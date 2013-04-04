@@ -1709,8 +1709,9 @@ actually)."
 
 (defun gnus-nnir-group-p (group)
   "Say whether GROUP is nnir or not."
-  (eq 'nnir (car (gnus-find-method-for-group group))))
-
+  (if (gnus-group-prefixed-p group)
+      (eq 'nnir (car (gnus-find-method-for-group group)))
+    (and group (string-match "^nnir" group))))
 
 (defun nnir-read-parms (nnir-search-engine)
   "Reads additional search parameters according to `nnir-engines'."
