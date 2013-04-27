@@ -10,7 +10,7 @@
   (mapcar (lambda (var) (unless (boundp var) (set var nil))) args))
 
 (unless (featurep 'xemacs)
-  (maybe-fbind '(pgg-display-output-buffer url-generic-parse-url))
+  (maybe-fbind '(debbugs-gnu pgg-display-output-buffer url-generic-parse-url))
   (maybe-bind '(help-xref-stack-item
 		url-version w3-meta-charset-content-type-regexp
 		w3-meta-content-type-charset-regexp))
@@ -62,14 +62,15 @@
    '(bookmark-default-handler
      bookmark-get-bookmark-record bookmark-make-record-default
      bookmark-prop-get clear-string codepage-setup coding-system-from-name
-     completion-at-point cp-supported-codepages create-image delete-overlay
-     detect-coding-string display-time-event-handler epg-check-configuration
-     event-click-count event-end event-start find-coding-systems-for-charsets
-     find-coding-systems-region find-coding-systems-string find-image
-     float-time gnutls-negotiate help-buffer ido-completing-read image-size
-     image-type-available-p insert-image libxml-parse-html-region
-     mail-abbrevs-setup make-mode-line-mouse-map make-network-process
-     mouse-minibuffer-check mouse-movement-p mouse-scroll-subr overlay-lists
+     completion-at-point cp-supported-codepages create-image debbugs-gnu
+     delete-overlay detect-coding-string display-time-event-handler
+     epg-check-configuration event-click-count event-end event-start
+     find-coding-systems-for-charsets find-coding-systems-region
+     find-coding-systems-string find-image float-time gnutls-negotiate
+     help-buffer ido-completing-read image-size image-type-available-p
+     insert-image libxml-parse-html-region mail-abbrevs-setup
+     make-mode-line-mouse-map make-network-process mouse-minibuffer-check
+     mouse-movement-p mouse-scroll-subr overlay-lists
      pgg-display-output-buffer posn-point posn-window process-type put-image
      read-char-choice read-event recenter-top-bottom
      rmail-msg-restore-non-pruned-header rmail-swap-buffers-maybe
