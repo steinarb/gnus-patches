@@ -10,7 +10,7 @@
   (mapcar (lambda (var) (unless (boundp var) (set var nil))) args))
 
 (unless (featurep 'xemacs)
-  (maybe-fbind '(debbugs-gnu pgg-display-output-buffer url-generic-parse-url))
+  (maybe-fbind '(pgg-display-output-buffer url-generic-parse-url))
   (maybe-bind '(help-xref-stack-item
 		url-version w3-meta-charset-content-type-regexp
 		w3-meta-content-type-charset-regexp))
