@@ -1,3 +1,7 @@
+2013-05-01  Lars Magne Ingebrigtsen  <lars@ingebrigtsen.no>
+
+	* gnus.el: Ma Gnus v0.7 is released.
+
 2013-05-01  Katsumi Yamaoka  <yamaoka@jpl.org>
 
 	* gnus-util.el (gnus-emacs-completing-read): Fix a filter for XEmacs.
