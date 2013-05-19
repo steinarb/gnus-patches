@@ -3997,7 +3997,10 @@ See `message-citation-line-format'."
                         ((or (= count 2) (= count 3)) (setq fname (car names)
                                                             lname (mapconcat 'identity (cdr names) " ")))
                         ((> count 3) (setq fname (mapconcat 'identity (butlast names (- count 2)) " ")
-                                           lname (mapconcat 'identity (nthcdr 2 names) " "))) )))
+                                           lname (mapconcat 'identity (nthcdr 2 names) " "))) )
+                  (when (string-match "\\(.*\\),\\'" fname)
+                    (let ((newlname (match-string 1 fname)))
+                      (setq fname lname lname newlname)))))
 	      ;; The following letters are not used in `format-time-string':
 	      (push ?E lst) (push "<E>" lst)
 	      (push ?F lst) (push fname lst)
