@@ -68,16 +68,18 @@
      find-coding-systems-for-charsets find-coding-systems-region
      find-coding-systems-string find-image float-time gnutls-negotiate
      help-buffer ido-completing-read image-size image-type-available-p
-     insert-image libxml-parse-html-region mail-abbrevs-setup
-     make-mode-line-mouse-map make-network-process mouse-minibuffer-check
-     mouse-movement-p mouse-scroll-subr overlay-lists
-     pgg-display-output-buffer posn-point posn-window process-type put-image
-     read-char-choice read-event recenter-top-bottom
+     insert-image jka-compr-get-compression-info jka-compr-info-uncompress-args
+     jka-compr-info-uncompress-message jka-compr-info-uncompress-program
+     jka-compr-installed-p jka-compr-make-temp-name libxml-parse-html-region
+     mail-abbrevs-setup make-mode-line-mouse-map make-network-process
+     make-term mouse-minibuffer-check mouse-movement-p mouse-scroll-subr
+     overlay-lists pgg-display-output-buffer posn-point posn-window
+     process-type put-image read-char-choice read-event recenter-top-bottom
      rmail-msg-restore-non-pruned-header rmail-swap-buffers-maybe
      select-safe-coding-system set-network-process-option shr-insert-document
-     sort-coding-systems track-mouse ucs-to-char url-generic-parse-url
-     url-insert-file-contents vcard-pretty-print w3-parse-buffer
-     w3m-detect-meta-charset w3m-region window-edges))
+     sort-coding-systems term-char-mode term-mode track-mouse ucs-to-char
+     url-generic-parse-url url-insert-file-contents vcard-pretty-print
+     w3-parse-buffer w3m-detect-meta-charset w3m-region window-edges))
   (maybe-bind
    '(adaptive-fill-first-line-regexp
      buffer-display-table buffer-save-without-query completion-styles
