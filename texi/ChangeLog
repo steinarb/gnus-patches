@@ -1,3 +1,8 @@
+2013-06-04  Katsumi Yamaoka  <yamaoka@jpl.org>
+
+	* gnus.texi (Article Date):
+	Fix description of gnus-article-update-date-headers.
+
 2013-05-19  Adam Sjøgren  <asjo@koldfront.dk>
 
 	* gnus.texi (Fancy Mail Splitting): Fix typo.
