@@ -8,7 +8,7 @@
 
 	* net/tls.el (open-tls-stream): Remove unneeded buffer contents up
 	to point when opening the connection.
-	Suggested by Jo„o T·vora <joaotavora@gmail.com> in
+	Suggested by Jo√£o T√°vora <joaotavora@gmail.com> in
 	<http://lists.gnu.org/archive/html/emacs-devel/2013-05/msg00464.html>.
 
 2013-06-04  Katsumi Yamaoka  <yamaoka@jpl.org>
