@@ -6069,7 +6069,8 @@ If SELECT-ARTICLES, only select those articles from GROUP."
 			 (gnus-active gnus-newsgroup-name) del))
 	      (push (list del 'del (list (cdr type))) delta-marks))))
 
-	(when list
+	(when (or list
+		  (eq (cdr type) 'unexist))
 	  (push (cons (cdr type) list) newmarked)))
 
       (when delta-marks
