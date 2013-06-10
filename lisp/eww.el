@@ -118,6 +118,7 @@
   (let ((map (make-sparse-keymap)))
     (suppress-keymap map)
     (define-key map "q" 'eww-quit)
+    (define-key map "g" 'eww-reload)
     (define-key map [tab] 'widget-forward)
     (define-key map [backtab] 'widget-backward)
     (define-key map [delete] 'scroll-down-command)
@@ -158,6 +159,12 @@
   (let ((prev (pop eww-history)))
     (url-retrieve (car prev) 'eww-render (list (car prev) (cadr prev)))))
 
+(defun eww-reload ()
+  "Reload the current page."
+  (interactive)
+  (url-retrieve eww-current-url 'eww-render
+		(list eww-current-url (point))))
+
 ;; Form support.
 
 (defvar eww-form nil)
@@ -183,8 +190,17 @@
 	    (list
 	     'push-button
 	     :notify 'eww-submit
+	     :name (cdr (assq :name cont))
 	     :eww-form eww-form
 	     (or (cdr (assq :value cont)) "Submit")))
+	   ((or (equal type "radio")
+		(equal type "checkbox"))
+	    (list 'checkbox
+		  :notify 'eww-click-radio
+		  :name (cdr (assq :name cont))
+		  :checkbox-value (cdr (assq :value cont))
+		  :eww-form eww-form
+		  (cdr (assq :checked cont))))
 	   (t
 	    (list
 	     'editable-field
@@ -196,19 +212,40 @@
 	     :name (cdr (assq :name cont))
 	     :eww-form eww-form)))))
     (apply 'widget-create widget)
-    (shr-generic cont)
     (put-text-property start (point) 'eww-widget widget)))
 
-(defun eww-submit (widget &optional dummy dummy)
+(defun eww-click-radio (widget &rest ignore)
+  (let ((form (getf (cdr widget) :eww-form))
+	(name (getf (cdr widget) :name)))
+    (if (widget-value widget)
+	;; Switch all the other radio buttons off.
+	(dolist (overlay (overlays-in (point-min) (point-max)))
+	  (let ((field (getf (overlay-properties overlay) 'button)))
+	    (when (and (eq (getf (cdr field) :eww-form) form)
+		       (equal name (getf (cdr field) :name)))
+	      (unless (eq field widget)
+		(widget-value-set field nil)))))
+      (widget-value-set widget t))
+    (eww-fix-widget-keymap)))
+
+(defun eww-submit (widget &rest ignore)
   (let ((form (getf (cdr widget) :eww-form))
 	values)
     (dolist (overlay (overlays-in (point-min) (point-max)))
-      (let ((field (getf (overlay-properties overlay) 'field)))
+      (let ((field (or (getf (overlay-properties overlay) 'field)
+		       (getf (overlay-properties overlay) 'button))))
 	(when (eq (getf (cdr field) :eww-form) form)
 	  (let ((name (getf (cdr field) :name)))
 	    (when name
-	      (push (cons name (widget-value field))
-		    values))))))
+	      (cond
+	       ((eq (car field) 'checkbox)
+		(when (widget-value field)
+		  (push (cons name (getf (cdr field) :checkbox-value))
+			values)))
+	       (t
+		(push (cons name (widget-value field))
+		      values))))))))
+    (debug values)
     (let ((shr-base eww-current-url))
       (if (and (stringp (getf form :method))
 	       (equal (downcase (getf form :method)) "post"))
@@ -229,10 +266,15 @@
       (setq widget (get-text-property start 'eww-widget))
       (goto-char start)
       (delete-region start (next-single-property-change start 'eww-widget))
-      (apply 'widget-create widget)
-      (when (equal (car widget) 'push-button)
-	(put-text-property start (point) 'local-map widget-keymap)))
-    (widget-setup)))
+      (apply 'widget-create widget))
+    (widget-setup)
+    (eww-fix-widget-keymap)))
+
+(defun eww-fix-widget-keymap ()
+  (dolist (overlay (overlays-in (point-min) (point-max)))
+    (when (or (getf (overlay-properties overlay) 'field)
+	      (getf (overlay-properties overlay) 'button))
+      (overlay-put overlay 'local-map widget-keymap))))
 
 (provide 'eww)
 
