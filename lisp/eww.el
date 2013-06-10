@@ -27,6 +27,7 @@
 (eval-when-compile (require 'cl))
 (require 'shr)
 (require 'url)
+(require 'mm-url)
 
 (defvar eww-current-url nil)
 (defvar eww-history nil)
@@ -135,7 +136,7 @@
 	mode-name "eww")
   (set (make-local-variable 'eww-current-url) 'author)
   (set (make-local-variable 'browse-url-browser-function) 'eww-browse-url)
-  (setq buffer-read-only t)
+  ;;(setq buffer-read-only t)
   (use-local-map eww-mode-map))
 
 (defun eww-browse-url (url &optional new-window)
@@ -173,20 +174,37 @@
 		       'eww-form eww-form)))
 
 (defun eww-tag-input (cont)
-  (push (cons (cdr (assq :name cont))
-	      (cdr (assq :value cont)))
-	eww-form)
   (let ((start (point))
 	(widget (list
 		 'editable-field
 		 :size (string-to-number
 			(or (cdr (assq :size cont))
 			    "40"))
-		 :value (or "____" (cdr (assq :value cont)) "")
-		 :action 'eww-submit)))
+		 :value (or (cdr (assq :value cont)) "")
+		 :action 'eww-submit
+		 :name (cdr (assq :name cont))
+		 :eww-form eww-form)))
     (apply 'widget-create widget)
     (shr-generic cont)
     (put-text-property start (point) 'eww-widget widget)))
+
+(defun eww-submit (widget dummy)
+  (let ((form (getf (cdr widget) :eww-form))
+	values)
+    (dolist (overlay (overlays-in (point-min) (point-max)))
+      (let ((field (getf (overlay-properties overlay) 'field)))
+	(when (eq (getf (cdr field) :eww-form) form)
+	  (let ((name (getf (cdr field) :name)))
+	    (when name
+	      (push (cons name (widget-value field))
+		    values))))))
+    (let ((shr-base eww-current-url))
+      (eww-browse-url
+       (shr-expand-url
+	(concat
+	 (getf form :action)
+	 "?"
+	 (mm-url-encode-www-form-urlencoded values)))))))
 
 (defun eww-convert-widgets ()
   (let ((start (point-min))
