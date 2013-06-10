@@ -30,13 +30,15 @@
 (require 'cl-lib)
 
 (defvar eww-current-url nil)
+(defvar eww-history nil)
+(defvar eww-current-page nil)
 
 (defun eww (url)
   "Fetch URL and render the page."
   (interactive "sUrl: ")
   (url-retrieve url 'eww-render (list url)))
 
-(defun eww-render (status url)
+(defun eww-render (status url &optional point)
   (let* ((headers (eww-parse-headers))
 	 (content-type
 	  (mail-header-parse-content-type
@@ -48,13 +50,16 @@
 			"utf8"))))
 	 (data-buffer (current-buffer)))
     (unwind-protect
-	(cond
-	 ((equal (car content-type) "text/html")
-	  (eww-display-html charset url))
-	 ((string-match "^image/" (car content-type))
-	  (eww-display-image))
-	 (t
-	  (eww-display-raw charset)))
+	(progn
+	  (cond
+	   ((equal (car content-type) "text/html")
+	    (eww-display-html charset url))
+	   ((string-match "^image/" (car content-type))
+	    (eww-display-image))
+	   (t
+	    (eww-display-raw charset)))
+	  (when point
+	    (goto-char point)))
       (kill-buffer data-buffer))))
 
 (defun eww-parse-headers ()
@@ -102,6 +107,10 @@
 (defvar eww-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map "q" 'eww-quit)
+    (define-key map [tab] 'widget-forward)
+    (define-key map [backtab] 'widget-backward)
+    (define-key map "p" 'eww-previous-url)
+    ;;(define-key map "n" 'eww-next-url)
     map))
 
 (defun eww-mode ()
@@ -112,7 +121,21 @@
   (setq major-mode 'eww-mode
 	mode-name "eww")
   (set (make-local-variable 'eww-current-url) 'author)
+  (set (make-local-variable 'browse-url-browser-function) 'eww-browse-url)
   (use-local-map eww-mode-map))
+
+(defun eww-browse-url (url &optional new-window)
+  (push (list eww-current-url (point))
+	eww-history)
+  (eww url))
+
+(defun eww-previous-url ()
+  "Go to the previously displayed page."
+  (interactive)
+  (when (zerop (length eww-history))
+    (error "No previous page"))
+  (let ((prev (pop eww-history)))
+    (url-retrieve (car prev) 'eww-render (list (car prev) (cadr prev)))))
 
 (provide 'eww)
 
