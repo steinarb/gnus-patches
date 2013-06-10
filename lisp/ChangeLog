@@ -1,5 +1,8 @@
 2013-06-10  Lars Magne Ingebrigtsen  <larsi@gnus.org>
 
+	* shr.el (shr-expand-url): Expand URLs that start with a slash
+	correctly.
+
 	* eww.el (eww-submit): Get submit button logic right.
 
 	* shr.el (shr-final-table-render): New variable to signal when we're

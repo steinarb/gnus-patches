@@ -491,6 +491,7 @@ size, and full-buffer size."
       ;; Absolute URL.
       url
     (let ((base shr-base))
+      ;; Chop off query string.
       (when (string-match "^\\([^?]+\\)[?]" base)
 	(setq base (match-string 1 base)))
       (cond
@@ -500,6 +501,9 @@ size, and full-buffer size."
        ((and (not (string-match "/\\'" base))
 	     (not (string-match "\\`/" url)))
 	(concat base "/" url))
+       ((and (string-match "\\`/" url)
+	     (string-match "\\(\\`[^:]*://[^/]+\\)/" base))
+	(concat (match-string 1 base) url))
        (t
 	(concat base url))))))
 
