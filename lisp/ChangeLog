@@ -1,6 +1,10 @@
 2013-06-10  Lars Magne Ingebrigtsen  <larsi@gnus.org>
 
+	* shr.el (shr-descend): Allow other packages to override (or provide)
+	rendering of elements.
+
 	* eww.el: Don't require cl-lib.
+	(eww-tag-form): Start form support.
 
 	* dgnushack.el (dgnushack-compile): Ignore eww on XEmacs.
 

@@ -114,6 +114,7 @@ cid: URL as the argument.")
 (defvar shr-stylesheet nil)
 (defvar shr-base nil)
 (defvar shr-ignore-cache nil)
+(defvar shr-external-rendering-functions nil)
 
 (defvar shr-map
   (let ((map (make-sparse-keymap)))
@@ -291,7 +292,12 @@ size, and full-buffer size."
     (nreverse result)))
 
 (defun shr-descend (dom)
-  (let ((function (intern (concat "shr-tag-" (symbol-name (car dom))) obarray))
+  (let ((function
+	 (or
+	  ;; Allow other packages to override (or provide) rendering
+	  ;; of elements.
+	  (cdr (assq (car dom) shr-external-rendering-functions))
+	  (intern (concat "shr-tag-" (symbol-name (car dom))) obarray)))
 	(style (cdr (assq :style (cdr dom))))
 	(shr-stylesheet shr-stylesheet)
 	(start (point)))

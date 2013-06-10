@@ -82,8 +82,13 @@
 	  (libxml-parse-html-region (point) (point-max)))))
     (eww-setup-buffer)
     (setq eww-current-url url)
-    (let ((inhibit-read-only t))
-      (shr-insert-document document))
+    (let ((inhibit-read-only t)
+	  (shr-external-rendering-functions
+	   '((form . eww-tag-form)
+	     (input . eww-tag-input)
+	     (submit . eww-tag-submit))))
+      (shr-insert-document document)
+      (eww-convert-widgets))
     (goto-char (point-min))))
 
 (defun eww-display-raw (charset)
@@ -102,6 +107,8 @@
 
 (defun eww-setup-buffer ()
   (pop-to-buffer (get-buffer-create "*eww*"))
+  (remove-overlays)
+  (setq widget-field-list nil)
   (let ((inhibit-read-only t))
     (erase-buffer))
   (eww-mode))
@@ -149,6 +156,48 @@
     (error "No previous page"))
   (let ((prev (pop eww-history)))
     (url-retrieve (car prev) 'eww-render (list (car prev) (cadr prev)))))
+
+;; Form support.
+
+(defvar eww-form nil)
+
+(defun eww-tag-form (cont)
+  (let ((eww-form
+	 (list (assq :method cont)
+	       (assq :action cont)))
+	(start (point)))
+    (shr-ensure-paragraph)
+    (shr-generic cont)
+    (shr-ensure-paragraph)
+    (put-text-property start (1+ start)
+		       'eww-form eww-form)))
+
+(defun eww-tag-input (cont)
+  (push (cons (cdr (assq :name cont))
+	      (cdr (assq :value cont)))
+	eww-form)
+  (let ((start (point))
+	(widget (list
+		 'editable-field
+		 :size (string-to-number
+			(or (cdr (assq :size cont))
+			    "40"))
+		 :value (or "____" (cdr (assq :value cont)) "")
+		 :action 'eww-submit)))
+    (apply 'widget-create widget)
+    (shr-generic cont)
+    (put-text-property start (point) 'eww-widget widget)))
+
+(defun eww-convert-widgets ()
+  (let ((start (point-min))
+	widget)
+    (while (setq start (next-single-property-change start 'eww-widget))
+      (setq widget (get-text-property start 'eww-widget))
+      (goto-char start)
+      (delete-region start (next-single-property-change start 'eww-widget))
+      (apply 'widget-create widget)
+      (put-text-property start (point) 'not-read-only t))
+    (widget-setup)))
 
 (provide 'eww)
 
