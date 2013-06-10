@@ -1,6 +1,7 @@
 2013-06-10  Lars Magne Ingebrigtsen  <larsi@gnus.org>
 
 	* eww.el (eww-submit): Make form submission work.
+	(eww-tag-input): Implement submit buttons.
 
 	* shr.el (shr-descend): Allow other packages to override (or provide)
 	rendering of elements.

@@ -174,21 +174,32 @@
 		       'eww-form eww-form)))
 
 (defun eww-tag-input (cont)
-  (let ((start (point))
-	(widget (list
-		 'editable-field
-		 :size (string-to-number
-			(or (cdr (assq :size cont))
-			    "40"))
-		 :value (or (cdr (assq :value cont)) "")
-		 :action 'eww-submit
-		 :name (cdr (assq :name cont))
-		 :eww-form eww-form)))
+  (let* ((start (point))
+	 (type (downcase (or (cdr (assq :type cont))
+			     "text")))
+	 (widget
+	  (cond
+	   ((equal type "submit")
+	    (list
+	     'push-button
+	     :notify 'eww-submit
+	     :eww-form eww-form
+	     (or (cdr (assq :value cont)) "Submit")))
+	   (t
+	    (list
+	     'editable-field
+	     :size (string-to-number
+		    (or (cdr (assq :size cont))
+			"40"))
+	     :value (or (cdr (assq :value cont)) "")
+	     :action 'eww-submit
+	     :name (cdr (assq :name cont))
+	     :eww-form eww-form)))))
     (apply 'widget-create widget)
     (shr-generic cont)
     (put-text-property start (point) 'eww-widget widget)))
 
-(defun eww-submit (widget dummy)
+(defun eww-submit (widget &optional dummy dummy)
   (let ((form (getf (cdr widget) :eww-form))
 	values)
     (dolist (overlay (overlays-in (point-min) (point-max)))
@@ -219,7 +230,8 @@
       (goto-char start)
       (delete-region start (next-single-property-change start 'eww-widget))
       (apply 'widget-create widget)
-      (put-text-property start (point) 'not-read-only t))
+      (when (equal (car widget) 'push-button)
+	(put-text-property start (point) 'local-map widget-keymap)))
     (widget-setup)))
 
 (provide 'eww)
