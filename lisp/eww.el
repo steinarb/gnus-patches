@@ -27,7 +27,6 @@
 (eval-when-compile (require 'cl))
 (require 'shr)
 (require 'url)
-(require 'cl-lib)
 
 (defvar eww-current-url nil)
 (defvar eww-history nil)
