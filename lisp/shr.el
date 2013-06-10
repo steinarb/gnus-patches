@@ -115,6 +115,7 @@ cid: URL as the argument.")
 (defvar shr-base nil)
 (defvar shr-ignore-cache nil)
 (defvar shr-external-rendering-functions nil)
+(defvar shr-final-table-render nil)
 
 (defvar shr-map
   (let ((map (make-sparse-keymap)))
@@ -1177,7 +1178,8 @@ ones, in case fg and bg are nil."
 	     (frame-width))
       (setq truncate-lines t))
     ;; Then render the table again with these new "hard" widths.
-    (shr-insert-table (shr-make-table cont sketch-widths t) sketch-widths))
+    (let ((shr-final-table-render t))
+      (shr-insert-table (shr-make-table cont sketch-widths t) sketch-widths)))
   ;; Finally, insert all the images after the table.  The Emacs buffer
   ;; model isn't strong enough to allow us to put the images actually
   ;; into the tables.

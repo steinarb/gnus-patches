@@ -201,6 +201,10 @@
 		  :checkbox-value (cdr (assq :value cont))
 		  :eww-form eww-form
 		  (cdr (assq :checked cont))))
+	   ((equal type "hidden")
+	    (list 'hidden
+		  :name (cdr (assq :name cont))
+		  :value (cdr (assq :value cont))))
 	   (t
 	    (list
 	     'editable-field
@@ -211,7 +215,10 @@
 	     :action 'eww-submit
 	     :name (cdr (assq :name cont))
 	     :eww-form eww-form)))))
-    (apply 'widget-create widget)
+    (if (eq (car widget) 'hidden)
+	(when shr-final-table-render
+	  (nconc eww-form (list widget)))
+      (apply 'widget-create widget))
     (put-text-property start (point) 'eww-widget widget)))
 
 (defun eww-click-radio (widget &rest ignore)
@@ -233,7 +240,8 @@
 	values)
     (dolist (overlay (overlays-in (point-min) (point-max)))
       (let ((field (or (getf (overlay-properties overlay) 'field)
-		       (getf (overlay-properties overlay) 'button))))
+		       (getf (overlay-properties overlay) 'button)
+		       (getf (overlay-properties overlay) 'eww-hidden))))
 	(when (eq (getf (cdr field) :eww-form) form)
 	  (let ((name (getf (cdr field) :name)))
 	    (when name
@@ -242,10 +250,18 @@
 		(when (widget-value field)
 		  (push (cons name (getf (cdr field) :checkbox-value))
 			values)))
+	       ((eq (car field) 'eww-hidden)
+		(push (cons name (getf (cdr field) :value))
+		      values))
 	       (t
 		(push (cons name (widget-value field))
 		      values))))))))
-    (debug values)
+    (dolist (elem form)
+      (when (and (consp elem)
+		 (eq (car elem) 'hidden))
+	(push (cons (getf (cdr elem) :name)
+		    (getf (cdr elem) :value))
+	      values)))
     (let ((shr-base eww-current-url))
       (if (and (stringp (getf form :method))
 	       (equal (downcase (getf form :method)) "post"))
@@ -272,8 +288,7 @@
 
 (defun eww-fix-widget-keymap ()
   (dolist (overlay (overlays-in (point-min) (point-max)))
-    (when (or (getf (overlay-properties overlay) 'field)
-	      (getf (overlay-properties overlay) 'button))
+    (when (getf (overlay-properties overlay) 'button)
       (overlay-put overlay 'local-map widget-keymap))))
 
 (provide 'eww)
