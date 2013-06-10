@@ -199,12 +199,17 @@
 	      (push (cons name (widget-value field))
 		    values))))))
     (let ((shr-base eww-current-url))
-      (eww-browse-url
-       (shr-expand-url
-	(concat
-	 (getf form :action)
-	 "?"
-	 (mm-url-encode-www-form-urlencoded values)))))))
+      (if (and (stringp (getf form :method))
+	       (equal (downcase (getf form :method)) "post"))
+	  (let ((url-request-method "POST")
+		(url-request-data (mm-url-encode-www-form-urlencoded values)))
+	    (eww-browse-url (shr-expand-url (getf form :action))))
+	(eww-browse-url
+	 (shr-expand-url
+	  (concat
+	   (getf form :action)
+	   "?"
+	   (mm-url-encode-www-form-urlencoded values))))))))
 
 (defun eww-convert-widgets ()
   (let ((start (point-min))
