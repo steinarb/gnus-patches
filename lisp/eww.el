@@ -31,7 +31,6 @@
 
 (defvar eww-current-url nil)
 (defvar eww-history nil)
-(defvar eww-current-page nil)
 
 (defun eww (url)
   "Fetch URL and render the page."
@@ -84,31 +83,39 @@
 	  (libxml-parse-html-region (point) (point-max)))))
     (eww-setup-buffer)
     (setq eww-current-url url)
-    (shr-insert-document document)
+    (let ((inhibit-read-only t))
+      (shr-insert-document document))
     (goto-char (point-min))))
 
 (defun eww-display-raw (charset)
   (let ((data (buffer-substring (point) (point-max))))
     (eww-setup-buffer)
-    (insert data)
+    (let ((inhibit-read-only t))
+      (insert data))
     (goto-char (point-min))))
 
 (defun eww-display-image ()
   (let ((data (buffer-substring (point) (point-max))))
     (eww-setup-buffer)
-    (shr-put-image data nil)
+    (let ((inhibit-read-only t))
+      (shr-put-image data nil))
     (goto-char (point-min))))
 
 (defun eww-setup-buffer ()
   (pop-to-buffer (get-buffer-create "*eww*"))
-  (erase-buffer)
+  (let ((inhibit-read-only t))
+    (erase-buffer))
   (eww-mode))
 
 (defvar eww-mode-map
   (let ((map (make-sparse-keymap)))
+    (suppress-keymap map)
     (define-key map "q" 'eww-quit)
     (define-key map [tab] 'widget-forward)
     (define-key map [backtab] 'widget-backward)
+    (define-key map [delete] 'scroll-down-command)
+    (define-key map "\177" 'scroll-down-command)
+    (define-key map " " 'scroll-up-command)
     (define-key map "p" 'eww-previous-url)
     ;;(define-key map "n" 'eww-next-url)
     map))
@@ -122,12 +129,19 @@
 	mode-name "eww")
   (set (make-local-variable 'eww-current-url) 'author)
   (set (make-local-variable 'browse-url-browser-function) 'eww-browse-url)
+  (setq buffer-read-only t)
   (use-local-map eww-mode-map))
 
 (defun eww-browse-url (url &optional new-window)
   (push (list eww-current-url (point))
 	eww-history)
   (eww url))
+
+(defun eww-quit ()
+  "Exit the Emacs Web Wowser."
+  (interactive)
+  (setq eww-history nil)
+  (kill-buffer (current-buffer)))
 
 (defun eww-previous-url ()
   "Go to the previously displayed page."

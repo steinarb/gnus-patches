@@ -2,6 +2,7 @@
 
 	* eww.el: Start writing a new, tiny web browser.
 	(eww-previous-url): New command.
+	(eww-quit): New command.
 
 2013-06-10  Albert Krewinkel  <krewinkel@moltkeplatz.de>
 
