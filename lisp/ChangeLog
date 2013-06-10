@@ -1,5 +1,7 @@
 2013-06-10  Lars Magne Ingebrigtsen  <larsi@gnus.org>
 
+	* dgnushack.el (dgnushack-compile): Ignore eww on XEmacs.
+
 	* eww.el: Start writing a new, tiny web browser.
 	(eww-previous-url): New command.
 	(eww-quit): New command.
