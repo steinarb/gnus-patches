@@ -32,6 +32,7 @@
 (defvar eww-current-url nil)
 (defvar eww-history nil)
 
+;;;###autoload
 (defun eww (url)
   "Fetch URL and render the page."
   (interactive "sUrl: ")
@@ -213,6 +214,7 @@
 		    (or (cdr (assq :size cont))
 			"40"))
 	     :value (or (cdr (assq :value cont)) "")
+	     :secret (and (equal type "password") ?*)
 	     :action 'eww-submit
 	     :name (cdr (assq :name cont))
 	     :eww-form eww-form)))))
