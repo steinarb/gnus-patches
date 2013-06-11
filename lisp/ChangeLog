@@ -2,6 +2,7 @@
 
 	* eww.el (eww-convert-widgets): Make widgets from non-tabular layouts
 	work, too.
+	(eww-tag-select): Implement <select>.
 
 2013-06-10  Albert Krewinkel  <krewinkel@moltkeplatz.de>
 

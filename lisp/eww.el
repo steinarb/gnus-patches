@@ -88,7 +88,7 @@
 	  (shr-external-rendering-functions
 	   '((form . eww-tag-form)
 	     (input . eww-tag-input)
-	     (submit . eww-tag-submit))))
+	     (select . eww-tag-select))))
       (shr-insert-document document)
       (eww-convert-widgets))
     (goto-char (point-min))))
@@ -225,6 +225,27 @@
       (apply 'widget-create widget))
     (put-text-property start (point) 'eww-widget widget)
     (insert " ")))
+
+(defun eww-tag-select (cont)
+  (shr-ensure-paragraph)
+  (let ((menu (list 'menu-choice
+		    :name (cdr (assq :name cont))
+		    :eww-form eww-form))
+	(options nil)
+	(start (point)))
+    (dolist (elem cont)
+      (when (eq (car elem) 'option)
+	(when (cdr (assq :selected (cdr elem)))
+	  (nconc menu (list :value
+			    (cdr (assq :value (cdr elem))))))
+	(push (list 'item
+		    :value (cdr (assq :value (cdr elem)))
+		    :tag (cdr (assq 'text (cdr elem))))
+	      options)))
+    (nconc menu options)
+    (apply 'widget-create menu)
+    (put-text-property start (point) 'eww-widget menu)
+    (shr-ensure-paragraph)))
 
 (defun eww-click-radio (widget &rest ignore)
   (let ((form (plist-get (cdr widget) :eww-form))
