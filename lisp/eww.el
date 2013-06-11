@@ -223,7 +223,8 @@
 	(when shr-final-table-render
 	  (nconc eww-form (list widget)))
       (apply 'widget-create widget))
-    (put-text-property start (point) 'eww-widget widget)))
+    (put-text-property start (point) 'eww-widget widget)
+    (insert " ")))
 
 (defun eww-click-radio (widget &rest ignore)
   (let ((form (plist-get (cdr widget) :eww-form))
@@ -300,12 +301,17 @@
 (defun eww-convert-widgets ()
   (let ((start (point-min))
 	widget)
+    ;; Some widgets come from different buffers (rendered for tables),
+    ;; so we need to nix out the list of widgets and recreate them.
+    (setq widget-field-list nil
+	  widget-field-new nil)
     (while (setq start (next-single-property-change start 'eww-widget))
       (setq widget (get-text-property start 'eww-widget))
       (goto-char start)
       (let ((end (next-single-property-change start 'eww-widget)))
 	(dolist (overlay (overlays-in start end))
-	  (when (plist-get (overlay-properties overlay) 'button)
+	  (when (or (plist-get (overlay-properties overlay) 'button)
+		    (plist-get (overlay-properties overlay) 'field))
 	    (delete-overlay overlay)))
 	(delete-region start end))
       (apply 'widget-create widget))
