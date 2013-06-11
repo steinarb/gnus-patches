@@ -201,6 +201,7 @@
 		  :notify 'eww-click-radio
 		  :name (cdr (assq :name cont))
 		  :checkbox-value (cdr (assq :value cont))
+		  :checkbox-type type
 		  :eww-form eww-form
 		  (cdr (assq :checked cont))))
 	   ((equal type "hidden")
@@ -227,15 +228,16 @@
 (defun eww-click-radio (widget &rest ignore)
   (let ((form (plist-get (cdr widget) :eww-form))
 	(name (plist-get (cdr widget) :name)))
-    (if (widget-value widget)
-	;; Switch all the other radio buttons off.
-	(dolist (overlay (overlays-in (point-min) (point-max)))
-	  (let ((field (plist-get (overlay-properties overlay) 'button)))
-	    (when (and (eq (plist-get (cdr field) :eww-form) form)
-		       (equal name (plist-get (cdr field) :name)))
-	      (unless (eq field widget)
-		(widget-value-set field nil)))))
-      (widget-value-set widget t))
+    (when (equal (plist-get (cdr widget) :type) "radio")
+      (if (widget-value widget)
+	  ;; Switch all the other radio buttons off.
+	  (dolist (overlay (overlays-in (point-min) (point-max)))
+	    (let ((field (plist-get (overlay-properties overlay) 'button)))
+	      (when (and (eq (plist-get (cdr field) :eww-form) form)
+			 (equal name (plist-get (cdr field) :name)))
+		(unless (eq field widget)
+		  (widget-value-set field nil)))))
+	(widget-value-set widget t)))
     (eww-fix-widget-keymap)))
 
 (defun eww-submit (widget &rest ignore)
