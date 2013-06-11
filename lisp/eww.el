@@ -281,11 +281,13 @@
 		    (plist-get (cdr elem) :value))
 	      values)))
     (let ((shr-base eww-current-url))
-      (if (and (stringp (plist-get form :method))
-	       (equal (downcase (plist-get form :method)) "post"))
+      (if (and (stringp (cdr (assq :method form)))
+	       (equal (downcase (cdr (assq :method form))) "post"))
 	  (let ((url-request-method "POST")
+		(url-request-extra-headers
+		 '(("Content-Type" . "application/x-www-form-urlencoded")))
 		(url-request-data (mm-url-encode-www-form-urlencoded values)))
-	    (eww-browse-url (shr-expand-url (plist-get form :action))))
+	    (eww-browse-url (shr-expand-url (cdr (assq :action form)))))
 	(eww-browse-url
 	 (shr-expand-url
 	  (concat
