@@ -38,6 +38,18 @@
   (interactive "sUrl: ")
   (url-retrieve url 'eww-render (list url)))
 
+(defun eww-detect-charset (html-p)
+  (let ((case-fold-search t)
+	(pt (point)))
+    (or (and html-p
+	     (re-search-forward
+	      "<meta[\t\n\r ]+[^>]*charset=\\([^\t\n\r \"/>]+\\)" nil t)
+	     (goto-char pt)
+	     (match-string 1))
+	(and (looking-at
+	      "[\t\n\r ]*<\\?xml[\t\n\r ]+[^>]*encoding=\"\\([^\"]+\\)")
+	     (match-string 1)))))
+
 (defun eww-render (status url &optional point)
   (let* ((headers (eww-parse-headers))
 	 (content-type
@@ -47,6 +59,8 @@
 	 (charset (intern
 		   (downcase
 		    (or (cdr (assq 'charset (cdr content-type)))
+			(eww-detect-charset (equal (car content-type)
+						   "text/html"))
 			"utf8"))))
 	 (data-buffer (current-buffer)))
     (unwind-protect
