@@ -36,6 +36,8 @@
 (defun eww (url)
   "Fetch URL and render the page."
   (interactive "sUrl: ")
+  (unless (string-match-p "\\`[a-zA-Z][-a-zA-Z0-9+.]*://" url)
+    (setq url (concat "http://" url)))
   (url-retrieve url 'eww-render (list url)))
 
 (defun eww-detect-charset (html-p)
