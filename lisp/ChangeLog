@@ -2,6 +2,8 @@
 
 	* eww.el (eww): Prepend urls with http:// if scheme is missing.
 	(eww-mode): Use `define-derived-mode'.
+	(eww-parse-headers): Parse headers from beginning of buffer so that
+	file:// links work.
 
 2013-06-13  Katsumi Yamaoka  <yamaoka@jpl.org>
 

@@ -80,6 +80,7 @@
 
 (defun eww-parse-headers ()
   (let ((headers nil))
+    (goto-char (point-min))
     (while (and (not (eobp))
 		(not (eolp)))
       (when (looking-at "\\([^:]+\\): *\\(.*\\)")
