@@ -1,6 +1,7 @@
 2013-06-13  Rüdiger Sonderfeld  <ruediger@c-plusplus.de>
 
 	* eww.el (eww): Prepend urls with http:// if scheme is missing.
+	(eww-mode): Use `define-derived-mode'.
 
 2013-06-13  Katsumi Yamaoka  <yamaoka@jpl.org>
 

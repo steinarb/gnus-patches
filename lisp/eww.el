@@ -145,17 +145,12 @@
     ;;(define-key map "n" 'eww-next-url)
     map))
 
-(defun eww-mode ()
+(define-derived-mode eww-mode nil "eww"
   "Mode for browsing the web.
 
 \\{eww-mode-map}"
-  (interactive)
-  (setq major-mode 'eww-mode
-	mode-name "eww")
   (set (make-local-variable 'eww-current-url) 'author)
-  (set (make-local-variable 'browse-url-browser-function) 'eww-browse-url)
-  ;;(setq buffer-read-only t)
-  (use-local-map eww-mode-map))
+  (set (make-local-variable 'browse-url-browser-function) 'eww-browse-url))
 
 (defun eww-browse-url (url &optional new-window)
   (push (list eww-current-url (point))
