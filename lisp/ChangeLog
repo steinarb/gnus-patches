@@ -1,4 +1,8 @@
-2013-06-14  David Edmondson <dme@dme.org>  (tiny change)
+2013-06-14  Glenn Morris  <rgm@gnu.org>
+
+	* mml2015.el (mml2015-maximum-key-image-dimension): Add :version.
+
+2013-06-14  David Edmondson  <dme@dme.org>  (tiny change)
 
 	* mml2015.el (mml2015-maximum-key-image-dimension): New user option to
 	control the maximum size of photo ID image.
